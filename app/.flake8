@@ -5,3 +5,6 @@ exclude =
     __pycache__,
     manage.py,
     settings.py
+    test_models.py
+    ./core/migrations
+    admin.py
