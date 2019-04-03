@@ -17,6 +17,7 @@ services:
       - DB_NAME=app
       - DB_USER=postgres
       - DB_PASS=supersecretpassword
+      - DB_ENGINE=django.db.backends.postgresql
     depends_on:
       - db
   db:
