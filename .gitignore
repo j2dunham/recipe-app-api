@@ -105,3 +105,4 @@ venv.bak/
 */settings.json
 # VSCode
 .vscode/launch.json
+app/core/migrations/*.py
