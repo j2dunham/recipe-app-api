@@ -121,3 +121,25 @@ class PrivateRecipeApiTests(TestCase):
         self.assertEqual(ingredients.count(), 2)
         self.assertIn(ingredient1, ingredients)
         self.assertIn(ingredient2, ingredients)
+
+    def test_updating_recipe_with_patch(self):
+        recipe = sample_recipe(user=self.user, title="Shake & Bake Chicken")
+        url = detail_url(recipe.id)
+        res = self.client.patch(url, {"title": "Salad"})
+
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
+        self.assertEqual(res.data["title"], "Salad")
+
+    def test_updating_recipe_with_put(self):
+        recipe = sample_recipe(user=self.user)
+        payload = {
+            "title": "omelette",
+            "time_minutes": 10,
+            "price": 4.50,
+        }
+        url = detail_url(recipe.id)
+        res = self.client.put(url, payload)
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
+        recipe.refresh_from_db()
+        for key in payload.keys():
+            self.assertEqual(payload[key], getattr(recipe, key))
