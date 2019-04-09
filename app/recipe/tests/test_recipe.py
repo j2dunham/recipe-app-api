@@ -132,11 +132,7 @@ class PrivateRecipeApiTests(TestCase):
 
     def test_updating_recipe_with_put(self):
         recipe = sample_recipe(user=self.user)
-        payload = {
-            "title": "omelette",
-            "time_minutes": 10,
-            "price": 4.50,
-        }
+        payload = {"title": "omelette", "time_minutes": 10, "price": 4.50}
         url = detail_url(recipe.id)
         res = self.client.put(url, payload)
         self.assertEqual(res.status_code, status.HTTP_200_OK)
