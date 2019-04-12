@@ -1,7 +1,10 @@
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework import viewsets, mixins, status
-from rest_framework.authentication import TokenAuthentication
+from rest_framework.authentication import (
+    TokenAuthentication,
+    SessionAuthentication,
+)
 from rest_framework.permissions import IsAuthenticated
 
 from core.models import Tag, Ingredient, Recipe
@@ -11,7 +14,7 @@ from recipe import serializers
 class BaseRecipeViewSet(
     viewsets.GenericViewSet, mixins.ListModelMixin, mixins.CreateModelMixin
 ):
-    authentication_classes = (TokenAuthentication,)
+    authentication_classes = (TokenAuthentication, SessionAuthentication)
     permission_classes = (IsAuthenticated,)
 
     def get_queryset(self):
@@ -39,7 +42,7 @@ class IngredientViewSet(BaseRecipeViewSet):
 class RecipeViewSet(viewsets.ModelViewSet):
     serializer_class = serializers.RecipeSerializer
     queryset = Recipe.objects.all()
-    authentication_classes = (TokenAuthentication,)
+    authentication_classes = (TokenAuthentication, SessionAuthentication)
     permission_classes = (IsAuthenticated,)
 
     def _params_to_ints(self, str_ids):
