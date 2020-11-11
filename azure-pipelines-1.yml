@@ -22,4 +22,4 @@ steps:
     containerregistrytype: 'Container Registry'
     dockerComposeFile: '**/docker-compose.yml'
     action: 'Run a Docker Compose command'
-    dockerComposeCommand: 'docrun --rm app sh -c "python manage.py test && flake8'
+    dockerComposeCommand: 'run --rm app sh -c "python manage.py test && flake8'
